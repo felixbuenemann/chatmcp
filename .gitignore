@@ -1,0 +1,11 @@
+# Local design notes — kept out of the repo while we figure out the channel-notifications path.
+claude-channel-notifications-idea.md
+
+# Built artifacts
+/chatmcp
+/dist/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

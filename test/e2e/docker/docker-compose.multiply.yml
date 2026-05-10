@@ -1,0 +1,15 @@
+# Override for the multi-turn "multiply" e2e: each agent gets a private
+# secret integer via MY_SECRET. Alice asks bob for his number, multiplies
+# by hers, posts the product. Verifier asserts the product is correct.
+#
+#   docker compose -f docker-compose.yml -f docker-compose.multiply.yml up
+
+services:
+  alice:
+    environment:
+      CHATMCP_E2E_TASK: multiply
+      MY_SECRET: ${ALICE_SECRET:?ALICE_SECRET required (export it from run-multiply.sh)}
+  bob:
+    environment:
+      CHATMCP_E2E_TASK: multiply
+      MY_SECRET: ${BOB_SECRET:?BOB_SECRET required (export it from run-multiply.sh)}

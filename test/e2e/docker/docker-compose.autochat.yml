@@ -1,0 +1,15 @@
+# Override for the autonomous-chat e2e: agents are forbidden (in their
+# prompts) from calling chat_read/chat_inbox in a polling loop, and must
+# use chat_wait as their only message-receiving mechanism. Proves chat_wait
+# enables real-time multi-agent collaboration without per-turn polling
+# instructions.
+#
+#   docker compose -f docker-compose.yml -f docker-compose.autochat.yml up
+
+services:
+  alice:
+    environment:
+      CHATMCP_E2E_TASK: autochat
+  bob:
+    environment:
+      CHATMCP_E2E_TASK: autochat

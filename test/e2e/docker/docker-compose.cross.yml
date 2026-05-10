@@ -1,0 +1,17 @@
+# Override for the cross-SDK test: alice keeps using Claude (default in
+# docker-compose.yml), bob switches to the Codex SDK.
+#
+#   docker compose -f docker-compose.yml -f docker-compose.cross.yml up
+#
+# OPENAI_API_KEY must be in the environment so docker-compose can forward it
+# to the bob container.
+
+services:
+  bob:
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY:?OPENAI_API_KEY required for cross-SDK test}
+      CHATMCP_E2E_SDK: codex
+      # Override CHATMCP_E2E_MODEL with a Codex model. Default gpt-5-mini.
+      # gpt-5-nano does NOT work reliably for this task — it kept inventing a
+      # non-existent `read_mcp_resource` tool instead of calling mcp__chat__*.
+      CHATMCP_E2E_MODEL: ${CODEX_E2E_MODEL:-gpt-5-mini}

@@ -1,0 +1,26 @@
+# Build context exclusions for the chatmcp Docker image.
+# The build only needs go.mod, go.sum, and the Go sources under cmd/ + internal/.
+
+.git
+.gitignore
+*.md
+README.md
+
+# Already-built binaries
+chatmcp
+/chatmcp
+/dist
+
+# Test artifacts
+**/testdata/tmp/
+
+# Editor/OS
+.DS_Store
+.idea/
+.vscode/
+
+# CI / docker meta (we don't need to ship these into the image build)
+.github/
+
+# We DO need test/e2e/docker/* files (Dockerfile, agent.mjs, package.json)
+# because the Dockerfile copies them. So this isn't excluded.
