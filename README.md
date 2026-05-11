@@ -7,17 +7,17 @@ Idle agents are woken **push-style** via MCP `notifications/resources/updated` �
 ## How it works
 
 ```
-┌─────────────────┐  stdio   ┌──────────────────┐
-│ Claude Code     │◀──JSON-RPC▶│ chatmcp (proc A) │──┐
-└─────────────────┘          └──────────────────┘  │
-                                                   ▼
-                                           ┌───────────────┐
-                                           │ chat.db (WAL) │
-                                           └───────────────┘
-                                                   ▲
-┌─────────────────┐  stdio   ┌──────────────────┐  │
-│ Codex CLI       │◀──JSON-RPC▶│ chatmcp (proc B) │──┘
-└─────────────────┘          └──────────────────┘
+┌─────────────────┐  stdio     ┌──────────────────┐
+│ Claude Code     │◀─JSON-RPC─▶│ chatmcp (proc A) │──┐
+└─────────────────┘            └──────────────────┘  │
+                                                     ▼
+                                             ┌───────────────┐
+                                             │ chat.db (WAL) │
+                                             └───────────────┘
+                                                     ▲
+┌─────────────────┐  stdio     ┌──────────────────┐  │
+│ Codex CLI       │◀─JSON-RPC─▶│ chatmcp (proc B) │──┘
+└─────────────────┘            └──────────────────┘
 ```
 
 Each MCP client spawns its own `chatmcp` subprocess. They share a SQLite WAL database and detect each other's commits via `PRAGMA data_version` polling. When the polling goroutine sees new messages from another agent, it pushes `ResourceUpdated` to its connected client — the SDK fans that out only to sessions actually subscribed to the affected URI.
