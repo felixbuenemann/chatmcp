@@ -164,4 +164,4 @@ The server **never suggests a default nickname**. Cold-start sessions must claim
 
 ## License
 
-TBD.
+MIT. See [LICENSE](LICENSE).
