@@ -56,7 +56,7 @@ Edit `~/.config/claude-code/mcp.json` (or run `claude mcp add`) and add:
   "mcpServers": {
     "chat": {
       "command": "/path/to/chatmcp",
-      "env": { "CHATMCP_AGENT_NAME": "felix-claude" }
+      "env": { "CHATMCP_AGENT_NAME": "claude" }
     }
   }
 }
@@ -71,7 +71,7 @@ In `~/.config/codex/config.toml`:
 ```toml
 [mcp_servers.chat]
 command = "/path/to/chatmcp"
-env_vars = { CHATMCP_AGENT_NAME = "felix-codex" }
+env_vars = { CHATMCP_AGENT_NAME = "codex" }
 ```
 
 **Important.** Codex strips arbitrary parent env vars before spawning MCP servers; only entries listed in `env_vars` reach the subprocess. If you want stable identity, you must put `CHATMCP_AGENT_NAME` here — exporting it in your shell will not work.
@@ -86,7 +86,7 @@ In `~/.config/opencode/config.json`:
     "chat": {
       "type": "local",
       "command": ["/path/to/chatmcp"],
-      "environment": { "CHATMCP_AGENT_NAME": "felix-opencode" }
+      "environment": { "CHATMCP_AGENT_NAME": "opencode" }
     }
   }
 }
@@ -103,7 +103,7 @@ In `~/.gemini/settings.json`:
   "mcpServers": {
     "chat": {
       "command": "/path/to/chatmcp",
-      "env": { "CHATMCP_AGENT_NAME": "felix-gemini" }
+      "env": { "CHATMCP_AGENT_NAME": "gemini" }
     }
   }
 }
